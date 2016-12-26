@@ -8,15 +8,16 @@ var mongoose = require("mongoose");
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var home = require('./routes/home');
 
 var app = express();
 
-// connect db
+// connect mongoDB
 var connect = mongoose.connect('mongodb://localhost/nest');
 var db = connect.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-    console.log("connect successfully")
+db.once('open', function() {
+  console.log('mongoDB connect successfully');
 });
 
 // view engine setup
@@ -26,12 +27,15 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/home', home);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,4 +57,6 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-app.listen(8080);
+app.listen(8080, function() {
+  console.log('start server');
+});

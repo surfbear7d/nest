@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  form(method="post", action="")
+    label(for="Name") post
+    input(type="text", name="Name")
+    input(type="submit", value="送信")
+    
+  br
+  ul
+    each p in posts
+      li= p.text
+  
