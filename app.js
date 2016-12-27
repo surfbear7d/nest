@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require("mongoose");
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -13,6 +12,7 @@ var home = require('./routes/home');
 var app = express();
 
 // connect mongoDB
+var mongoose = require("mongoose");
 var connect = mongoose.connect('mongodb://localhost/nest');
 var db = connect.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
